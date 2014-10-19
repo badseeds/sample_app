@@ -12,12 +12,20 @@ gem 'uglifier', '>= 1.3.0'
 
 group :development, :test do
   gem 'rspec-rails'
-  # gem 'rspec',       '3.1.0'
+  gem 'guard-rspec'
+  gem 'growl', '1.0.3'
   gem 'sqlite3'
   gem 'byebug',      '3.4.0'
   gem 'spring'
 end
 
+group :test do 
+  gem 'rspec', '~> 3.1.0'
+  gem 'capybara', '2.4.3'
+  gem 'childprocess', '0.3.6'
+end
+
 group :production do
   gem 'pg', '0.15.1'
 end
+
