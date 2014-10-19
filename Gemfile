@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-
+gem 'ruby'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
 # Use jquery as the JavaScript library
