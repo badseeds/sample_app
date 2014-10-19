@@ -4,6 +4,9 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
 
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
+
 group :development, :test do
   gem 'rspec-rails'
   # gem 'rspec',       '3.1.0'
