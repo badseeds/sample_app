@@ -17,6 +17,7 @@ group :development, :test do
   gem 'sqlite3'
   gem 'byebug',      '3.4.0'
   gem 'spring'
+  gem 'annotate'
 end
 
 group :test do 
