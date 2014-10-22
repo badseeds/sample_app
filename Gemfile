@@ -24,6 +24,7 @@ group :test do
   gem 'rspec', '~> 3.1.0'
   gem 'capybara', '2.4.3'
   gem 'childprocess', '0.3.6'
+  gem 'factory_girl_rails', '4.5.0'
 end
 
 group :production do
