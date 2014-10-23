@@ -10,6 +10,8 @@ gem 'turbolinks'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
+gem 'gravatar_image_tag', '1.2.0'
+
 group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
