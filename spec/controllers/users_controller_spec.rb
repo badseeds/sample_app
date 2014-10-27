@@ -23,30 +23,28 @@ RSpec.describe UsersController, :type => :controller do
     it "should have the right title" do
       get :show, :id => @user.id
       expect(response.body).to include("Ruby on Rails Tutorial Sample App | #{@user.name}")
-      #assert_select "title", "Ruby on Rails Tutorial Sample App | #{@user.name}"
     end
 
     it "should have the user's name" do
       get :show, :id => @user.id
       expect(response.body).to include("#{@user.name}")
-      #assert_select "h1", "#{@user.name}"
     end
     
     it "should have a profile name" do
       get :show, :id => @user.id
       expect(response.body).to include("gravatar")
-      #assert_select "h1>img", "gravatar"
     end
     
     it "should have the right URL" do
-      get :show, :id => @user.id
-      expect(response.body).to include("user_path(@user)")
-      #assert_select "td>a", "user_path(@user)"
+      visit user_path(@user)
+      expect(page).to have_selector("td>a[href='#{user_path(@user)}']", :text=> user_path(@user))
     end
 
   end
 
   describe "GET new" do
+
+    render_views
 
     it "returns http success" do
       get :new
@@ -55,7 +53,60 @@ RSpec.describe UsersController, :type => :controller do
 
     it "should have the right title" do
       get :new
-      assert_select "title", "Ruby on Rails Tutorial Sample App | Sign up"
+      expect(page).to have_title("Ruby on Rails Tutorial Sample App | Sign up")
+    end
+
+  end
+
+  describe "POST 'create'" do
+
+    describe "failure" do
+
+      before(:each) do
+        @attr = { :name => "", :email =>"", :password => "", :password_confirmation => ""}
+      end
+
+      it "should have the right title" do
+        post :create, :user => @attr
+        expect(response.body).to include("Sign up")
+      end
+
+      it "should render the new page" do
+        post :create, :user => @attr
+        expect(response.body).to render_template('new')
+      end
+
+      it "should not create a user" do       
+        expect{
+          post :create, :user => @attr
+        }.to_not change(User, :count)
+      end
+
+    end
+
+  end
+
+
+  describe "success" do
+
+    before(:each) do
+      @attr = { :name => "Noa di Stavro", :email =>"noa@dude.com", :password => "zoraki", :password_confirmation => "zoraki"}
+    end
+
+    it "should create a user" do       
+      expect{
+      post :create, :user => @attr
+      }.to change(User, :count).by(1)
+    end
+
+    it "should redirect to the user page" do
+      post :create, :user => @attr
+      expect(response).to redirect_to(user_path(assigns(:user)))
+    end
+
+    it "should have a welcome message" do
+      post :create, :user => @attr
+      flash[:success].should =~ /welcome to the sample app/i 
     end
 
   end
